@@ -19,4 +19,3 @@ public with sharing class LeadTriggerHandler {
         update updatedLeadList;
     }
 }
-

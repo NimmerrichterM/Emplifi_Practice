@@ -1,6 +1,5 @@
 public with sharing class Countries_Info_Retriever implements Schedulable{
 
-
     private static final String QUERY_VARIABLE_URL = '/v2/all?fields=name,alpha2Code,alpha3Code,capital,region,subregion,regionalBlocs';
     private static final String Get = 'GET';
 
@@ -45,7 +44,5 @@ public with sharing class Countries_Info_Retriever implements Schedulable{
 
     public void execute(SchedulableContext SC) {
         getCountriesData();
-
     }
-
 }

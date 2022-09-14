@@ -1,6 +1,3 @@
-/**
- * Created by Home on 14.09.2022.
- */
 
 @IsTest
 private class LeadTriggerHandlerTest {
