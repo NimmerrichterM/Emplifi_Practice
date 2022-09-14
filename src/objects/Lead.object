@@ -311,6 +311,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Country_Info__c</fullName>
+        <externalId>false</externalId>
+        <formula>Region__c  &amp; &apos;, &apos; &amp;  Subregion__c  &amp;&apos;, &apos; &amp;  Region_Block__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Region, Subregion, Region Block</inlineHelpText>
+        <label>Country Info</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>CurrentGenerators__c</fullName>
         <externalId>false</externalId>
         <label>Current Generator(s)</label>
@@ -598,6 +609,23 @@
     </searchLayouts>
     <sharingModel>ReadWriteTransfer</sharingModel>
     <validationRules>
+        <fullName>Change_of_owner_conditions_Admin</fullName>
+        <active>true</active>
+        <description>Admin always needs to fill out Lead Source</description>
+        <errorConditionFormula>AND(ISCHANGED( OwnerId ), ISPICKVAL( LeadSource , &apos;&apos;)) &amp;&amp; $Profile.Name  =  &apos;System Administrator&apos;</errorConditionFormula>
+        <errorMessage>Lead Source needs to be filled out!</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Change_of_owner_conditions_Contract_m</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR(
+AND(ISCHANGED( OwnerId ), Country = &apos;&apos;),
+AND(ISCHANGED( OwnerId ), ISPICKVAL( LeadSource , &apos;&apos;) )
+)
+&amp;&amp; $Profile.Name = &apos;Contract Manager&apos;</errorConditionFormula>
+        <errorMessage>Country and Lead Source needs to be filled out!</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Change_of_owner_unless_conditions_are_me</fullName>
         <active>true</active>
         <errorConditionFormula>OR( 
@@ -607,12 +635,5 @@ AND(ISCHANGED( OwnerId ), ISPICKVAL( LeadSource , &apos;&apos;) )
 ) &amp;&amp; $Profile.Name &lt;&gt; &apos;System Administrator&apos; 
 &amp;&amp; $Profile.Name &lt;&gt; &apos;Contract Manager&apos;</errorConditionFormula>
         <errorMessage>No. of Employees, Country and Lead Source needs to be filled out!</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>Contract_Manager_Rule</fullName>
-        <active>true</active>
-        <description>Contract manager needs to fill out Country and Lead Source</description>
-        <errorConditionFormula>IF(($Profile.Name = &apos;Contract Manager&apos; &amp;&amp; ISBLANK(Country) )|| ($Profile.Name = &apos;Contract Manager&apos; &amp;&amp;  ISPICKVAL( LeadSource,&apos;&apos;)),  TRUE, FALSE)</errorConditionFormula>
-        <errorMessage>Please fill out the country and Lead source Information!</errorMessage>
     </validationRules>
 </CustomObject>
